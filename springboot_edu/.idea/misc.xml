@@ -6,6 +6,8 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/edu-eureka-boot/pom.xml" />
+        <option value="$PROJECT_DIR$/edu-ad-boot/pom.xml" />
+        <option value="$PROJECT_DIR$/edu-gateway-boot/pom.xml" />
       </list>
     </option>
   </component>
