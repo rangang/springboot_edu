@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
                 System.out.println(user.getId());
                 String token = JwtUtil.createToken(user);
                 // 将token保存到redis中，并设置过期时间
-                redisTemplate.opsForValue().set(token,token,15*1000, TimeUnit.SECONDS);
+                redisTemplate.opsForValue().set(token,token,60, TimeUnit.SECONDS);
                 userDTO.setToken(token);
                 System.out.println("token = " + token);
             }
@@ -65,6 +65,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO checkToken(String token) {
-        return null;
+        UserDTO userDTO = new UserDTO();
+        int i = JwtUtil.isVerify(token);
+        if (i == 0) {
+            userDTO.setState(EduConstant.TOKEN_SUCCESS_CODE);
+            userDTO.setMessage(EduConstant.TOKEN_SUCCESS);
+            redisTemplate.opsForValue().set(token,token,60, TimeUnit.SECONDS);
+        } else if (i == 1) {
+            userDTO.setState(EduConstant.TOKEN_TIMEOUT_CDOE);
+            userDTO.setMessage(EduConstant.TOKEN_TIMEOUT);
+        } else if (i == 2) {
+            userDTO.setState(EduConstant.TOKEN_NULL_CODE);
+            userDTO.setMessage(EduConstant.TOKEN_ERROR1);
+        } else {
+            userDTO.setState(EduConstant.TOKEN_ERROR_CDOE);
+            userDTO.setMessage(EduConstant.TOKEN_ERROR2);
+        }
+        return userDTO;
+    }
+
+    @Override
+    public Integer register(String phone, String password, String nickname, String portrait) {
+        User user = new User();
+        user.setPhone(phone);
+        user.setPassword(password);
+        user.setName(nickname);
+        user.setPortrait(portrait);
+        return userMapper.insert(user);
     }
 }

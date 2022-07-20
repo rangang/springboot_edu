@@ -25,4 +25,15 @@ public interface UserService {
      */
     UserDTO checkToken(String token);
 
+    /**
+     * 用户注册
+     *
+     * @param phone    手机号
+     * @param password 密码
+     * @param nickname 昵称
+     * @param portrait 头像
+     * @return 受影响的行数
+     */
+    Integer register(String phone, String password, String nickname, String portrait);
+
 }

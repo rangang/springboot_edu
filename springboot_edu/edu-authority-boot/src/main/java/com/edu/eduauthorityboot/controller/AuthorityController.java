@@ -26,4 +26,9 @@ public class AuthorityController {
         return userService.login(phone,password);
     }
 
+    @RequestMapping("/checkToken")
+    public UserDTO checkToken(String token) {
+        return userService.checkToken(token);
+    }
+
 }
