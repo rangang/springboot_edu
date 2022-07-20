@@ -10,6 +10,7 @@
         <module name="edu-authority-boot" />
         <module name="edu-ad-boot" />
         <module name="edu-eureka-boot" />
+        <module name="edu-user-boot" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
       <module name="edu-authority-boot" options="-parameters" />
       <module name="edu-eureka-boot" options="-parameters" />
       <module name="edu-gateway-boot" options="-parameters" />
+      <module name="edu-user-boot" options="-parameters" />
     </option>
   </component>
 </project>
