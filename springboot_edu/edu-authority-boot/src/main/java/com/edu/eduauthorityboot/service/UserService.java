@@ -36,4 +36,11 @@ public interface UserService {
      */
     Integer register(String phone, String password, String nickname, String portrait);
 
+    /**
+     * 手机验证码登录
+     * @param phoneNumber
+     * @return
+     */
+    UserDTO loginPhoneSms(String phoneNumber);
+
 }

@@ -1,7 +1,10 @@
 package com.edu.eduauthorityboot.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 import java.io.Serializable;
@@ -19,6 +22,7 @@ public class User implements Serializable {
     /**
      * 用户id
      */
+    @TableId(type = IdType.AUTO)
     private Integer id;
     /**
      * 用户昵称

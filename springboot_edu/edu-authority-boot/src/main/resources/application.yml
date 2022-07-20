@@ -27,3 +27,11 @@ eureka:
     prefer-ip-address: true
     # 注册中心列表中显示的状态参数
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+ali:
+  sms:
+    signName: 冉刚
+    templateCode: SMS_139920003
+    accessKeyId: LTAIelGQ4NSbOg20
+    accessKeySecret: D16ktKu3LLJM8E4lO69CrL1VGamshU
+

@@ -93,4 +93,25 @@ public class UserServiceImpl implements UserService {
         user.setPortrait(portrait);
         return userMapper.insert(user);
     }
+
+    @Override
+    public UserDTO loginPhoneSms(String phoneNumber) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone",phoneNumber);
+        User user = userMapper.selectOne(queryWrapper);
+        if (user == null) {
+            // 手机号不存在 先注册
+            register(phoneNumber,"123","手机新用户","https://test.png");
+            return loginPhoneSms(phoneNumber);
+        }
+        System.out.println("user = " + user);
+        // 创建token
+        String token = JwtUtil.createToken(user);
+        // 封装DTO
+        UserDTO userDTO = new UserDTO();
+        userDTO.setState(EduConstant.LOGIN_SUCCESS_CODE);
+        userDTO.setMessage(EduConstant.LOGIN_SUCCESS);
+        userDTO.setToken(token);
+        return userDTO;
+    }
 }
