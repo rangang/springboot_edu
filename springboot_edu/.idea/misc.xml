@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/edu-gateway-boot/pom.xml" />
         <option value="$PROJECT_DIR$/edu-authority-boot/pom.xml" />
         <option value="$PROJECT_DIR$/edu-user-boot/pom.xml" />
+        <option value="$PROJECT_DIR$/edu-course-boot/pom.xml" />
       </list>
     </option>
   </component>
