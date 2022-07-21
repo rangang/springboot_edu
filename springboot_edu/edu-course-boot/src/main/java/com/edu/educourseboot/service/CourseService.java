@@ -1,6 +1,7 @@
 package com.edu.educourseboot.service;
 
 import com.edu.educourseboot.entity.Course;
+import com.edu.educourseboot.entity.CourseDTO;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface CourseService {
      * 查询全部课程信息
      * @return
      */
-    List<Course> getAllCourse();
+    List<CourseDTO> getAllCourse();
 
     /**
      * 查询已登录用户购买的全部课程信息

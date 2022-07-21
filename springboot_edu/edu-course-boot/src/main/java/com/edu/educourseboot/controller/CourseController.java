@@ -1,6 +1,7 @@
 package com.edu.educourseboot.controller;
 
 import com.edu.educourseboot.entity.Course;
+import com.edu.educourseboot.entity.CourseDTO;
 import com.edu.educourseboot.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,9 +26,9 @@ public class CourseController {
     private CourseService courseService;
 
     @RequestMapping("/getAllCourse")
-    public List<Course> getAllCourse() {
+    public List<CourseDTO> getAllCourse() {
 
-        List<Course> list = courseService.getAllCourse();
+        List<CourseDTO> list = courseService.getAllCourse();
         return list;
 
     }

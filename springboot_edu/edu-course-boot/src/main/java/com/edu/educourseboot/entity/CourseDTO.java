@@ -2,8 +2,8 @@ package com.edu.educourseboot.entity;
 
 import lombok.Data;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,12 +13,16 @@ import java.util.List;
  * @since 2022-07-11 10:19:34
  */
 @Data
-public class Course implements Serializable {
+public class CourseDTO implements Serializable {
     private static final long serialVersionUID = -95032559020241209L;
-    // /**
-    //  * 一门课程对应一个讲师
-    //  */
-    // private Teacher teacher;
+    /**
+     * 一门课程对应一个讲师
+     */
+    private Teacher teacher;
+    /**
+     * 一门课程关联前两节课时
+     */
+    private List<CourseLesson> lessons;
     // /**
     //  * 一门课程对应多个章节
     //  */

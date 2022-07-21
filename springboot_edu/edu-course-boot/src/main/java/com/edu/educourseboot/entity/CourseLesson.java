@@ -17,7 +17,7 @@ public class CourseLesson implements Serializable {
     /**
      *  一小节对应一个视频
      */
-    private CourseMedia courseMedia;
+    // private CourseMedia courseMedia;
     /**
      * id
      */

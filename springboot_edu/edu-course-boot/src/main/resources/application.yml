@@ -20,5 +20,3 @@ eureka:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
-mybatis-plus:
-  mapper-locations: classpath:mybatis/mapper/*.xml  #resources下创建mybatis/mapper
