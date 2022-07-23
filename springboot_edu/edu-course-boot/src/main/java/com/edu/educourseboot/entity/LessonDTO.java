@@ -2,23 +2,22 @@ package com.edu.educourseboot.entity;
 
 import lombok.Data;
 
-import java.util.Date;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 /**
- * 课程章节表(CourseSection)实体类
+ * 课程节内容(CourseLesson)实体类
  *
  * @author RG
  * @since 2022-07-11 10:42:22
  */
 @Data
-public class CourseSection implements Serializable {
-    private static final long serialVersionUID = -24882580307027226L;
+public class LessonDTO implements Serializable {
+    private static final long serialVersionUID = 866785801548048114L;
     /**
-     * 一个章节对应多个小节
+     *  一小节对应一个视频
      */
-    // private List<CourseLesson> courseLessons;
+    private CourseMedia courseMedia;
     /**
      * id
      */
@@ -28,13 +27,21 @@ public class CourseSection implements Serializable {
      */
     private Integer courseId;
     /**
-     * 章节名
+     * 章节id
      */
-    private String sectionName;
+    private Integer sectionId;
     /**
-     * 章节描述
+     * 课时主题
      */
-    private String description;
+    private String theme;
+    /**
+     * 课时时长(分钟)
+     */
+    private Integer duration;
+    /**
+     * 是否免费
+     */
+    private Integer isFree;
     /**
      * 记录创建时间
      */
@@ -52,9 +59,10 @@ public class CourseSection implements Serializable {
      */
     private Integer orderNum;
     /**
-     * 状态，0:隐藏；1：待更新；2：已发布
+     * 课时状态,0-隐藏，1-未发布，2-已发布
      */
     private Integer status;
+
 
 
 }

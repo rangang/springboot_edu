@@ -1,12 +1,10 @@
 package com.edu.educourseboot.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.edu.educourseboot.entity.Course;
-import com.edu.educourseboot.entity.CourseDTO;
-import com.edu.educourseboot.entity.CourseLesson;
-import com.edu.educourseboot.entity.Teacher;
+import com.edu.educourseboot.entity.*;
 import com.edu.educourseboot.mapper.CourseMapper;
 import com.edu.educourseboot.mapper.LessonMapper;
+import com.edu.educourseboot.mapper.SectionMapper;
 import com.edu.educourseboot.mapper.TeacherMapper;
 import com.edu.educourseboot.service.CourseService;
 import org.springframework.beans.BeanUtils;
@@ -36,6 +34,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private LessonMapper lessonMapper;
+
+    @Autowired
+    private SectionMapper sectionMapper;
 
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
@@ -115,12 +116,69 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCourseByUserId(String userId) {
-        return null;
+    public CourseDTO getCourseById(Integer courseId) {
+        // 根据课程ID获取课程的基本信息
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",courseId);
+        Course course = courseMapper.selectOne(queryWrapper);
+        CourseDTO courseDTO = new CourseDTO();
+        BeanUtils.copyProperties(course,courseDTO);
+        // 关联老师
+        setTeacher(courseDTO);
+        // 关联章节
+        List<SectionDTO> sectionDTOS = getCourseSection(courseDTO);
+        courseDTO.setCourseSections(sectionDTOS);
+
+        return courseDTO;
+    }
+
+    /**
+     * 关联章节
+     * @param courseDTO
+     * @return
+     */
+    private List<SectionDTO> getCourseSection(CourseDTO courseDTO) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("course_id",courseDTO.getId());
+        queryWrapper.eq("is_del",Boolean.FALSE);
+        queryWrapper.eq("status",2);
+        queryWrapper.orderByAsc("order_num");
+        // 基本的章节信息
+        List<CourseSection> list = sectionMapper.selectList(queryWrapper);
+        // 关联的章节信息
+        List<SectionDTO> sectionDTOS = new ArrayList<>();
+        for (CourseSection section : list) {
+            SectionDTO sectionDTO = new SectionDTO();
+            BeanUtils.copyProperties(section,sectionDTO);
+
+            // 清除条件
+            queryWrapper.clear();
+            queryWrapper.eq("course_id",courseDTO.getId());
+            queryWrapper.eq("is_del",Boolean.FALSE);
+            queryWrapper.orderByDesc("order_num");
+            // 某章节的全部小节(基本信息)
+            List<CourseLesson> lessons = lessonMapper.selectList(queryWrapper);
+            // 某章节的全部小节（关联信息）
+            List<LessonDTO> lessonDTOS = new ArrayList<>();
+            for (CourseLesson lesson : lessons) {
+                LessonDTO lessonDTO = new LessonDTO();
+                BeanUtils.copyProperties(lesson,lessonDTO);
+                lessonDTOS.add(lessonDTO);
+            }
+            // 章节关联所有小节
+            sectionDTO.setCourseLessons(lessonDTOS);
+            // 某个章节放入到章节集合
+            sectionDTOS.add(sectionDTO);
+        }
+
+        return sectionDTOS;
     }
 
     @Override
-    public Course getCourseById(Integer courseId) {
+    public List<Course> getCourseByUserId(String userId) {
+
         return null;
     }
+
+
 }

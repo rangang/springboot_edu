@@ -40,7 +40,7 @@ public class CourseController {
     }
 
     @RequestMapping("/getCourseById/{courseId}")
-    public Course getCourseById(@PathVariable("courseId") Integer courseId) {
+    public CourseDTO getCourseById(@PathVariable("courseId") Integer courseId) {
         return courseService.getCourseById(courseId);
     }
 }

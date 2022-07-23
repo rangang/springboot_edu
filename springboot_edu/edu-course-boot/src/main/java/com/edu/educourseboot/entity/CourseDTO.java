@@ -23,10 +23,10 @@ public class CourseDTO implements Serializable {
      * 一门课程关联前两节课时
      */
     private List<CourseLesson> lessons;
-    // /**
-    //  * 一门课程对应多个章节
-    //  */
-    // private List<CourseSection> courseSections;
+    /**
+     * 一门课程对应多个章节
+     */
+    private List<SectionDTO> courseSections;
     // /**
     //  * 一门课做一个活动
     //  */
