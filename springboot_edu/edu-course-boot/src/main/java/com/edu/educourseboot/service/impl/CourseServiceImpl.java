@@ -2,10 +2,7 @@ package com.edu.educourseboot.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.edu.educourseboot.entity.*;
-import com.edu.educourseboot.mapper.CourseMapper;
-import com.edu.educourseboot.mapper.LessonMapper;
-import com.edu.educourseboot.mapper.SectionMapper;
-import com.edu.educourseboot.mapper.TeacherMapper;
+import com.edu.educourseboot.mapper.*;
 import com.edu.educourseboot.service.CourseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private SectionMapper sectionMapper;
+
+    @Autowired
+    private MediaMapper mediaMapper;
 
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
@@ -163,6 +163,8 @@ public class CourseServiceImpl implements CourseService {
             for (CourseLesson lesson : lessons) {
                 LessonDTO lessonDTO = new LessonDTO();
                 BeanUtils.copyProperties(lesson,lessonDTO);
+                // 设置每节课对应的视频
+                setMedia(lessonDTO);
                 lessonDTOS.add(lessonDTO);
             }
             // 章节关联所有小节
@@ -172,6 +174,20 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return sectionDTOS;
+    }
+
+    /**
+     * 设置每节课的视频
+     * @param lessonDTO
+     */
+    private void setMedia(LessonDTO lessonDTO) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        // 一节课，一个视频
+        queryWrapper.eq("lesson_id",lessonDTO.getId());
+        // 未删除
+        queryWrapper.eq("is_del",Boolean.FALSE);
+        CourseMedia media = mediaMapper.selectOne(queryWrapper);
+        lessonDTO.setCourseMedia(media);
     }
 
     @Override
