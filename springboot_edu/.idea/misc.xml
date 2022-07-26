@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/edu-user-boot/pom.xml" />
         <option value="$PROJECT_DIR$/edu-course-boot/pom.xml" />
         <option value="$PROJECT_DIR$/edu-comment-boot/pom.xml" />
+        <option value="$PROJECT_DIR$/edu-pay-boot/pom.xml" />
+        <option value="$PROJECT_DIR$/edu-order-boot/pom.xml" />
       </list>
     </option>
   </component>

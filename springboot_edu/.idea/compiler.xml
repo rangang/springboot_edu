@@ -8,8 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="edu-user-boot" />
         <module name="edu-gateway-boot" />
+        <module name="edu-order-boot" />
         <module name="edu-authority-boot" />
         <module name="edu-course-boot" />
+        <module name="edu-pay-boot" />
         <module name="edu-ad-boot" />
         <module name="edu-eureka-boot" />
         <module name="edu-comment-boot" />
@@ -24,6 +26,8 @@
       <module name="edu-course-boot" options="-parameters" />
       <module name="edu-eureka-boot" options="-parameters" />
       <module name="edu-gateway-boot" options="-parameters" />
+      <module name="edu-order-boot" options="-parameters" />
+      <module name="edu-pay-boot" options="-parameters" />
       <module name="edu-user-boot" options="-parameters" />
     </option>
   </component>
