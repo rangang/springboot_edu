@@ -3,6 +3,7 @@ package com.edu.educourseboot.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.edu.educourseboot.entity.*;
 import com.edu.educourseboot.mapper.*;
+import com.edu.educourseboot.remote.OrderRemoteService;
 import com.edu.educourseboot.service.CourseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class CourseServiceImpl implements CourseService {
                 list = (List<CourseDTO>) redisTemplate.opsForValue().get("allCourse");
                 if (null == list) {
                     System.out.println("===查询mysql===");
-                    List<Course> courses = getInitCourse();
+                    List<Course> courses = getInitCourse(null);
                     list = new ArrayList<>();
                     for (Course course : courses) {
                         CourseDTO dto = new CourseDTO();
@@ -81,10 +82,13 @@ public class CourseServiceImpl implements CourseService {
      * 初始化基本的全部课程
      * @return
      */
-    private List<Course> getInitCourse() {
+    private List<Course> getInitCourse(List<Object> ids) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("status",1); // 已上架
         queryWrapper.eq("is_del",Boolean.FALSE); // 未删除
+        if (null != ids) {
+            queryWrapper.in("id",ids);
+        }
         queryWrapper.orderByDesc("sort_num"); // 排序
         return courseMapper.selectList(queryWrapper);
     }
@@ -190,10 +194,56 @@ public class CourseServiceImpl implements CourseService {
         lessonDTO.setCourseMedia(media);
     }
 
-    @Override
-    public List<Course> getCourseByUserId(String userId) {
+    @Autowired
+    private OrderRemoteService orderRemoteService;
 
-        return null;
+    @Override
+    public List<CourseDTO> getCourseByUserId(Integer userId) {
+        // 根据用户ID获取已经购买的课程ID集合
+        List<Object> ids = orderRemoteService.getOkOrderCourseIds(userId);
+        // 根据集合ID集合，查询响应的课程信息集合
+        return this.getMyCourses(ids);
+    }
+
+    /**
+     * 查询已购买的课程
+     * @param ids
+     * @return
+     */
+    private List<CourseDTO> getMyCourses(List<Object> ids) {
+
+        // 将redis内存中的序列化的集合名称用String重新命名（增加可读性）
+        RedisSerializer rs = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(rs);
+
+        // 1.先去redis中查询
+        System.out.println("***查询redis***");
+        List<CourseDTO> list = (List<CourseDTO>) redisTemplate.opsForValue().get("myCourse");
+        // 2.redis中没有，才会去mysql查询
+        if (null == list) {
+            synchronized (this) {
+                list = (List<CourseDTO>) redisTemplate.opsForValue().get("myCourse");
+                if (null == list) {
+                    System.out.println("===查询mysql===");
+                    List<Course> courses = getInitCourse(ids);
+                    list = new ArrayList<>();
+                    for (Course course : courses) {
+                        CourseDTO dto = new CourseDTO();
+                        // course将属性全部赋给courseDTO对象
+                        BeanUtils.copyProperties(course,dto);
+                        list.add(dto);
+                        // 设置老师
+                        setTeacher(dto);
+                        // 设置前两节课
+                        setTop2Lesson(dto);
+                    }
+                    redisTemplate.opsForValue().set("myCourse",list,10, TimeUnit.MINUTES);
+                }
+            }
+
+        }
+
+        return list;
     }
 
 

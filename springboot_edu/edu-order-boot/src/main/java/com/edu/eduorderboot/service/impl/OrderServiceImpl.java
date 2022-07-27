@@ -66,8 +66,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<UserCourseOrder> getOrderByUserId(String userId) {
+    public List<UserCourseOrder> getOkOrderCourseIds(Integer userId) {
         QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("status",20); // 购买成功
+        queryWrapper.eq("is_del",Boolean.FALSE); // 未删除
         queryWrapper.eq("user_id",userId);
         return orderMapper.selectList(queryWrapper);
     }

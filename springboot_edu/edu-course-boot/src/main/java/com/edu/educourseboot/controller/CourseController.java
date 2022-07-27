@@ -33,14 +33,14 @@ public class CourseController {
 
     }
 
-    @RequestMapping("/getCourseByUserId/{userId}")
-    public List<Course> getCourseByUserId(@PathVariable("userId") String userId) {
-        List<Course> list = courseService.getCourseByUserId(userId);
-        return list;
-    }
-
     @RequestMapping("/getCourseById/{courseId}")
     public CourseDTO getCourseById(@PathVariable("courseId") Integer courseId) {
         return courseService.getCourseById(courseId);
+    }
+
+    @RequestMapping("/getCourseByUserId/{userId}")
+    public List<CourseDTO> getCourseByUserId(@PathVariable("userId") Integer userId) {
+        List<CourseDTO> list = courseService.getCourseByUserId(userId);
+        return list;
     }
 }

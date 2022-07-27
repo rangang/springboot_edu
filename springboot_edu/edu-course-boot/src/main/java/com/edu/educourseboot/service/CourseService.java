@@ -30,7 +30,7 @@ public interface CourseService {
      * @param userId
      * @return
      */
-    List<Course> getCourseByUserId(String userId);
+    List<CourseDTO> getCourseByUserId(Integer userId);
 
 
 }

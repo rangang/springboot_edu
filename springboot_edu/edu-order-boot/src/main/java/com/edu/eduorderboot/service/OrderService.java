@@ -43,7 +43,7 @@ public interface OrderService {
      * @param userId    用户编号
      * @return
      */
-    List<UserCourseOrder> getOrderByUserId(String userId);
+    List<UserCourseOrder> getOkOrderCourseIds(Integer userId);
 
     /**
      * 保存订单信息

@@ -5,11 +5,9 @@ import com.edu.eduorderboot.entity.PayOrderRecord;
 import com.edu.eduorderboot.entity.UserCourseOrder;
 import com.edu.eduorderboot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,9 +89,14 @@ public class OrderController {
         return orderService.deleteOrder(orderNo);
     }
 
-    @RequestMapping("/getOrderByUserId/{userId}")
-    public List<UserCourseOrder> getOrderByUserId(@PathVariable("userId") String userId) {
-        return orderService.getOrderByUserId(userId);
+    @GetMapping("/getOkOrderCourseIds")
+    List<Object> getOkOrderCourseIds(@RequestParam("userId") Integer userId) {
+        List<UserCourseOrder> list = orderService.getOkOrderCourseIds(userId);
+        List<Object> ids = new ArrayList<>();
+        for (UserCourseOrder order : list) {
+            ids.add(order.getCourseId());
+        }
+        return ids;
     }
 
 }
