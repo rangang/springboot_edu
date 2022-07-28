@@ -2,9 +2,12 @@ package com.edu.eduorderboot.controller;
 
 import com.edu.eduorderboot.entity.PayOrder;
 import com.edu.eduorderboot.entity.PayOrderRecord;
+import com.edu.eduorderboot.entity.SmsVo;
 import com.edu.eduorderboot.entity.UserCourseOrder;
 import com.edu.eduorderboot.service.OrderService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -45,7 +48,7 @@ public class OrderController {
     }
 
     @RequestMapping("/updateOrder")
-    public Integer updateOrder(String orderNo, Integer status, String userId, String courseId, String courseName, Double price) {
+    public Integer updateOrder(String orderNo, Integer status, String userId, String courseId, String courseName, Double price,String phone) {
         Integer integer = orderService.updateOrder(orderNo, status);
         if (integer == 1) {
             // 创建支付成功的订单信息
@@ -80,6 +83,11 @@ public class OrderController {
             System.out.println("创建订单记录 = " + orderNo);
             orderService.saveOrderRecord(record);
 
+            SmsVo smsVo = new SmsVo();
+            smsVo.setPhone(phone); // 手机号码
+            smsVo.setCourseName(courseName);
+            // 发送短信成功的通知
+            rabbitTemplate.convertAndSend(queue,smsVo);
         }
         return integer;
     }
@@ -97,6 +105,22 @@ public class OrderController {
             ids.add(order.getCourseId());
         }
         return ids;
+    }
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Value("${spring.rabbitmq.queue}")
+    private String queue;
+
+    @RequestMapping("/sendMQ")
+    public void sendMQ() {
+
+        SmsVo smsVo = new SmsVo();
+        smsVo.setPhone("13452334233");
+        smsVo.setCourseName("测试课程");
+        rabbitTemplate.convertAndSend(queue,smsVo);
+
     }
 
 }
