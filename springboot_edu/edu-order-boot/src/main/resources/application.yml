@@ -45,7 +45,7 @@ eureka:
 
 ali:
   sms:
-    signName: 冉刚
-    templateCode: SMS_139920003
-    accessKeyId: LTAIelGQ4NSbOg20
-    accessKeySecret: D16ktKu3LLJM8E4lO69CrL1VGamshU
+    signName: xx
+    templateCode: xx
+    accessKeyId: xx
+    accessKeySecret: xx
