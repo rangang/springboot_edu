@@ -15,7 +15,7 @@ eureka:
 
 aliyun:
   oss:
-    endpoint: oss-cn-hangzhou.aliyuncs.com
-    accessKeyId: LTAI5tJsj4QFo9izo5LAKHdx
-    secret: etSDlOe4NmEhUb3jh3NO5JNNrznmEU
-    bucket: rg-spring-edu
+    endpoint: xx
+    accessKeyId: xx
+    secret: xx
+    bucket: xx
