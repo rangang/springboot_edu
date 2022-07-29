@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: edu-ad-boot
+      profile: dev
+      label: master
+      uri: http://localhost:9966

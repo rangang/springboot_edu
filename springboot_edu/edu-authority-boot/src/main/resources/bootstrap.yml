@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: edu-authority-boot #github上去掉yml的资源名称
+      profile: dev   #本次访问的配置项
+      label: master
+      uri: http://localhost:9966 # 去9966配置服务中心找属于自己的配置信息，靠上面的name和profile值查找

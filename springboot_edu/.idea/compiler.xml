@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="edu-config-boot" />
         <module name="edu-user-boot" />
         <module name="edu-gateway-boot" />
         <module name="edu-order-boot" />
@@ -24,6 +25,7 @@
       <module name="edu-ad-boot" options="-parameters" />
       <module name="edu-authority-boot" options="-parameters" />
       <module name="edu-comment-boot" options="-parameters" />
+      <module name="edu-config-boot" options="-parameters" />
       <module name="edu-course-boot" options="-parameters" />
       <module name="edu-eureka-boot" options="-parameters" />
       <module name="edu-file-boot" options="-parameters" />
