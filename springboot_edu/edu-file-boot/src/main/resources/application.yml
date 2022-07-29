@@ -1,0 +1,21 @@
+server:
+  port: 8009
+spring:
+  application:
+    name: edu-file-boot
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+aliyun:
+  oss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAI5tJsj4QFo9izo5LAKHdx
+    secret: etSDlOe4NmEhUb3jh3NO5JNNrznmEU
+    bucket: rg-spring-edu

@@ -14,6 +14,7 @@
         <module name="edu-pay-boot" />
         <module name="edu-ad-boot" />
         <module name="edu-eureka-boot" />
+        <module name="edu-file-boot" />
         <module name="edu-comment-boot" />
       </profile>
     </annotationProcessing>
@@ -25,6 +26,7 @@
       <module name="edu-comment-boot" options="-parameters" />
       <module name="edu-course-boot" options="-parameters" />
       <module name="edu-eureka-boot" options="-parameters" />
+      <module name="edu-file-boot" options="-parameters" />
       <module name="edu-gateway-boot" options="-parameters" />
       <module name="edu-order-boot" options="-parameters" />
       <module name="edu-pay-boot" options="-parameters" />
