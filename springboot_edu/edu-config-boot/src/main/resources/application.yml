@@ -7,9 +7,9 @@ spring:
     config:
       server:
         git:
-          uri: https://gitee.com/rangang/lagou-config.git
-          username: rangang
-          password: ran@0704
+          uri: xx #gitee项目地址
+          username: xx
+          password: xx
           search-paths:
             - lagou-config
           default-label: master
