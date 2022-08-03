@@ -7,6 +7,8 @@
 
 ## 项目说明
 ### edu-ad-boot
+- 广告微服务
+
 ### edu-authority-boot
 ### edu-comment-boot
 ### edu-course-boot
