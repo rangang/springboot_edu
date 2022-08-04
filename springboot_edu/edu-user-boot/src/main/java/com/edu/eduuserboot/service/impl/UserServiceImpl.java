@@ -1,6 +1,6 @@
 package com.edu.eduuserboot.service.impl;
 
-import com.edu.eduauthorityboot.entity.User;
+import com.edu.eduuserboot.entity.User;
 import com.edu.eduuserboot.mapper.UserMapper;
 import com.edu.eduuserboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

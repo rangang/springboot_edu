@@ -4,4 +4,4 @@ spring:
       name: edu-ad-boot
       profile: dev
       label: master
-      uri: http://localhost:9966
+      uri: http://172.16.167.20:9966

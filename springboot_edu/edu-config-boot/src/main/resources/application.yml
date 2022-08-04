@@ -7,9 +7,9 @@ spring:
     config:
       server:
         git:
-          uri: xx #gitee项目地址
-          username: xx
-          password: xx
+          uri: https://gitee.com/rangang/lagou-config.git #gitee项目地址
+          username: 13452334233@163.com
+          password: ran@0704
           search-paths:
             - lagou-config
           default-label: master
@@ -17,7 +17,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://172.16.167.20:7001/eureka
     register-with-eureka: true
     fetch-registry: true
   instance:

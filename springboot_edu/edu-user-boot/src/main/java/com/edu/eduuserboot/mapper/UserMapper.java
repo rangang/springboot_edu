@@ -1,7 +1,7 @@
 package com.edu.eduuserboot.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.edu.eduauthorityboot.entity.User;
+import com.edu.eduuserboot.entity.User;
 import org.springframework.stereotype.Component;
 
 /**

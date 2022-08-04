@@ -22,6 +22,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- 配置中心 客户端 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
+        <!-- 微服务起始加载bootstrap -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
         <!-- eureka客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -97,6 +109,39 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <!--镜像名称 rg/test-docker-demo-->
+                    <imageName>rg/${project.artifactId}</imageName>
+                    <!--标签版本-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <!--基础镜像，相当于Dockerfile里的from-->
+                    <baseImage>java</baseImage>
+                    <!--标签版本-->
+                    <maintainer>rg@edu.com</maintainer>
+                    <!--入口点，project.build.finalName就是project标签下的build标签下的filename标签内容，test-docker-demo-->
+                    <!--相当于启动容器后，会自动执行java -jar/test-docker-demo.jar-->
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <!--docker地址-->
+                    <dockerHost>http://172.16.167.20:2375</dockerHost>
+
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <!--复制的根目录，target-->
+                            <directory>${project.build.directory}</directory>
+                            <!--把哪个文件上传到docker，相当于Dockerfile里的add test-docker-demo.jar /-->
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
