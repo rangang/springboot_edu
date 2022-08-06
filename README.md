@@ -16,6 +16,8 @@
 ### edu-authority-boot
 ### edu-comment-boot
 ### edu-course-boot
+- 课程微服务
+
 ### edu-file-boot
 ### edu-gateway-boot
 ### edu-order-boot
