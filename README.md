@@ -15,6 +15,8 @@
 
 ### edu-authority-boot
 ### edu-comment-boot
+- 评论微服务
+
 ### edu-course-boot
 - 课程微服务
 
