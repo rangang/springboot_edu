@@ -14,6 +14,8 @@
 - 广告微服务
 
 ### edu-authority-boot
+- 认证微服务
+
 ### edu-comment-boot
 - 评论微服务
 
