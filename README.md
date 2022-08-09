@@ -23,6 +23,8 @@
 - 课程微服务
 
 ### edu-file-boot
+- 上传文件微服务
+
 ### edu-gateway-boot
 ### edu-order-boot
 ### edu-pay-boot
