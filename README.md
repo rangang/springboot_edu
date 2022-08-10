@@ -26,6 +26,8 @@
 - 上传文件微服务
 
 ### edu-gateway-boot
+- 网关微服务
+
 ### edu-order-boot
 ### edu-pay-boot
 ### edu-user-boot
