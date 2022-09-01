@@ -32,4 +32,6 @@
 - 订单微服务
 
 ### edu-pay-boot
+- 支付微服务
+
 ### edu-user-boot
